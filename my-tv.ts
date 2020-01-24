@@ -8,7 +8,7 @@ import * as readline from "readline";
 class MyTv {
   public express: Application;
   private rl: any;
-  private authToken: string = "Zy46tgfszm";
+  private authToken: string = "Zzt8gjslrr";
   private firstRun: boolean = false;
   private tv!: Device;
 
@@ -220,7 +220,7 @@ export default new MyTv().express;
 
 export interface responseObj {
   STATUS: Object;
-  ITEMS: [];
+  ITEMS: Array<any>
   URI: string;
 }
 
