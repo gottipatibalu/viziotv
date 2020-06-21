@@ -1,0 +1,413 @@
+/**
+ *
+ *  Vizio TV
+ *
+ *  Author: Balu
+ *  Date: 2018-06-19
+ */
+ 
+metadata {
+	definition (name: "Vizio Smart TV", namespace: "smartthings", author: "Balu",
+    			ocfDeviceType: "TV",
+                ) {
+    		capability "mediaController" 
+            
+			command "mute" 
+			command "source"
+			command "menu"    
+            command "tools"           
+			command "HDMI"    
+            command "Pause"
+            command "Up"
+            command "Down"
+            command "Left"
+            command "Right" 
+			command "chup" 
+ 			command "chdown"               
+			command "prech"
+			command "volup"    
+            command "voldown"           
+            command "Enter"
+            command "Return"
+            command "Exit"
+            command "Info"            
+            command "Size"
+            command "powerOn"
+            command "powerOff"
+            command "Refresh"
+            command "setGameInput"
+            
+	}
+
+    standardTile("switch", "device.switch", width: 1, height: 1, canChangeIcon: true) {
+        state "default", label:'TV', action:"TV.off", icon:"st.Electronics.electronics15", backgroundColor:"#ffffff"
+    }
+  	standardTile("TvStatus", "device.switch", canChangeIcon: true, decoration: "flat") {
+		state "off", label: '${currentValue}', action: "powerOn", icon: "st.switches.switch.off", backgroundColor: "#ffffff"
+		state "on", label: '${currentValue}', action: "powerOff", icon: "st.switches.switch.on", backgroundColor: "#00A0DC"
+	}
+ 	standardTile("power", "device.switch", width: 1, height: 1, canChangeIcon: true, decoration: "flat") {
+		state "off", label: '${currentValue}', action: "powerOn", icon: "st.switches.switch.off", backgroundColor: "#ffffff"
+		state "on", label: '${currentValue}', action: "powerOff", icon: "st.switches.switch.on", backgroundColor: "#00A0DC"
+	}
+    standardTile("mute", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Mute', action:"mute", icon:"st.custom.sonos.muted", backgroundColor:"#ffffff"
+    }    
+	standardTile("source", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Source', action:"source", icon:"st.Electronics.electronics15"
+    }
+	standardTile("tools", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Tools', action:"tools", icon:"st.secondary.tools"
+    }
+	standardTile("menu", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Menu', action:"menu", icon:"st.vents.vent"
+    }
+	standardTile("HDMI", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Source', action:"HDMI", icon:"st.Electronics.electronics15"
+    }
+    standardTile("Pause", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Pause', action:"Pause", icon:"st.sonos.play-btn"
+    }
+    standardTile("Up", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Up', action:"Up", icon:"st.thermostat.thermostat-up"
+    }
+    standardTile("Down", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Down', action:"Down", icon:"st.thermostat.thermostat-down"
+    }
+    standardTile("Left", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Left', action:"Left", icon:"st.thermostat.thermostat-left"
+    }
+    standardTile("Right", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Right', action:"Right", icon:"st.thermostat.thermostat-right"
+    }  
+	standardTile("chup", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'CH Up', action:"chup", icon:"st.thermostat.thermostat-up"
+    }
+	standardTile("chdown", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'CH Down', action:"chdown", icon:"st.thermostat.thermostat-down"
+    }
+	standardTile("prech", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Pre CH', action:"prech", icon:"st.secondary.refresh-icon"
+    }
+    standardTile("volup", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Vol Up', action:"volup", icon:"st.thermostat.thermostat-up"
+    }
+    standardTile("voldown", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Vol Down', action:"voldown", icon:"st.thermostat.thermostat-down"
+    }
+    standardTile("Enter", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Enter', action:"Enter", icon:"st.illuminance.illuminance.dark"
+    }
+    standardTile("Return", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Return', action:"Return", icon:"st.samsung.da.washer_ic_cancel"
+    }
+    standardTile("Exit", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Exit', action:"Exit", icon:"st.locks.lock.unlocked"
+    }    
+    standardTile("Info", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Info', action:"Info", icon:"st.motion.acceleration.active"
+    }    
+    standardTile("Size", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Picture Size', action:"Size", icon:"st.contact.contact.open"
+    }    
+ 	standardTile("Refresh", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Refresh', action:"Refresh", icon:"st.secondary.refresh-icon"
+    } 
+    standardTile("Game", "device.switch", decoration: "flat", canChangeIcon: false) {
+        state "default", label:'Game', action:"setGameInput", icon:"st.Electronics.electronics5"
+    }
+    main "TvStatus"
+    details (["power","HDMI","Pause","chup","prech","volup","chdown","mute","voldown", "menu", "Up", "tools", "Left", "Enter", "Right", "Return", "Down", "Exit", "Info","Size","Refresh","Game"])	
+}
+
+ 	def refreshRate = [:]
+    refreshRate << ["1" : "Refresh every minute"]
+    refreshRate << ["5" : "Refresh every 5 minutes"]
+	refreshRate << ["10" : "Refresh every 10 minutes"]
+    refreshRate << ["15" : "Refresh every 15 minutes"]
+    
+	preferences {
+  		input ("refresh_Rate", "enum", title: "Device Refresh Rate", options: refreshRate)
+		input("deviceIP", "text", title: "Device IP", required: true, displayDuringSetup: true)
+		input("devicePort", "text", title: "Device Port", required: true, displayDuringSetup: true)
+    }
+
+    def installed() {
+       log.debug "installed"
+       setRefreshRate(refresh_Rate);
+    }
+
+    def setRefreshRate(refreshRate) {
+        switch(refreshRate) {
+            case "1" :
+                runEvery1Minute(Refresh)
+                log.info "${device.name} ${device.label} Refresh Scheduled for every minute"
+                break
+            case "5" :
+                runEvery5Minutes(Refresh)
+                log.info "${device.name} ${device.label} Refresh Scheduled for every 5 minutes"
+                break
+            case "10" :
+                runEvery10Minutes(Refresh)
+                log.info "${device.name} ${device.label} Refresh Scheduled for every 10 minutes"
+                break
+            case "15" :
+                runEvery15Minutes(Refresh)
+                log.info "${device.name} ${device.label} Refresh Scheduled for every 15 minutes"
+                break
+            default:
+                runEvery10Minutes(Refresh)
+                log.info "${device.name} ${device.label} Refresh Scheduled for every 10 minutes"
+        }
+    }
+
+    def parse(String description) {
+        return null
+    }
+
+    private powerOnCallBack(response) {
+        sendEvent(name: "switch", value: "on")
+        parseResponse(response)
+    }
+
+    private powerOffCallBack(response) {
+        sendEvent(name: "switch", value: "off")
+        parseResponse(response)
+    }
+
+	private refreshCallBack(response) {
+      //  sendEvent(name: "switch", value: response.power)
+        def msg = parseLanMessage(response.description)
+        def data = msg.json;
+        def onOff = data.power
+        if (onOff == 1) {
+            onOff = "on"
+        } else {
+            onOff = "off"
+        }
+        sendEvent(name: "switch", value: onOff)
+        parseResponse(response)
+    }
+
+
+	
+    def on() {
+        log.debug "on()"
+        sendEvent(name: "switch", value: "on")
+    }
+
+    def off() {
+        log.debug "off()"
+        sendEvent(name: "switch", value: "off")
+    }
+
+    def powerOn() {
+        log.debug "powerOn"
+        sendCommand("/togglePower", "powerOnCallBack")
+    }
+
+    def powerOff() {
+        log.debug "powerOff"
+        sendCommand("/togglePower", "powerOffCallBack")
+    }
+
+ 	def Refresh() {
+        log.debug "refresh"
+        sendCommand("/currentMode", "refreshCallBack")
+    }
+    
+    def setGameInput(){
+    	def headers = [src:"Game"];
+        setInput(headers);
+    }
+    
+    def setInput(headers) {
+      sendCommandWithData("/setInput", "parseResponse", headers)
+    }
+    
+    
+    def off1() {
+        log.debug "Turning TV OFF"
+      //  parent.tvAction("POWEROFF",device.deviceNetworkId)
+        sendCommand("/togglePower", "parseResponse")
+        sendEvent(name:"Command", value: "Power Off", displayed: true) 
+    }
+
+    def mute() {
+        log.trace "MUTE pressed"
+        sendCommand("/toggleMute", "parseResponse")
+        sendEvent(name:"Command", value: "Mute", displayed: true) 
+    }
+
+    def source() {
+        log.debug "SOURCE pressed"
+        parent.tvAction("SOURCE",device.deviceNetworkId) 
+        sendEvent(name:"Command", value: "Source", displayed: true) 
+    }
+
+    def menu() {
+        log.debug "MENU pressed"
+        sendCommand("/menu", "parseResponse")
+        //parent.tvAction("MENU",device.deviceNetworkId) 
+    }
+
+    def tools() {
+        log.debug "TOOLS pressed"
+        parent.tvAction("TOOLS",device.deviceNetworkId) 
+        sendEvent(name:"Command", value: "Tools", displayed: true)     
+    }
+
+    def HDMI() {
+        log.debug "HDMI pressed"
+        parent.tvAction("HDMI",device.deviceNetworkId) 
+        sendEvent(name:"Command sent", value: "Source", displayed: true)
+    }
+
+    def Pause() {
+        log.debug "Pause pressed"
+         sendCommand("/pause", "parseResponse")
+        sendEvent(name:"Command", value: "Pause", displayed: true)
+    }
+
+    def Up() {
+        log.debug "UP pressed"
+        sendCommand("/navigateUp", "parseResponse")
+    }
+
+    def Down() {
+        log.debug "DOWN pressed"
+        sendCommand("/navigateDown", "parseResponse")
+    }
+
+    def Left() {
+        log.debug "LEFT pressed"
+       sendCommand("/navigateLeft", "parseResponse")
+    }
+
+    def Right() {
+        log.debug "RIGHT pressed"
+       sendCommand("/navigateRight", "parseResponse")
+    }
+
+    def chup() {
+        log.debug "CHUP pressed"
+        parent.tvAction("CHUP",device.deviceNetworkId)
+        sendEvent(name:"Command", value: "Channel Up", displayed: true)         
+    }
+
+    def chdown() {
+        log.debug "CHDOWN pressed"
+        parent.tvAction("CHDOWN",device.deviceNetworkId) 
+        sendEvent(name:"Command", value: "Channel Down", displayed: true)     
+    }
+
+    def prech() {
+        log.debug "PRECH pressed"
+        parent.tvAction("PRECH",device.deviceNetworkId)
+        sendEvent(name:"Command", value: "Prev Channel", displayed: true)       
+    }
+
+    def Exit() {
+        log.debug "EXIT pressed"
+        parent.tvAction("EXIT",device.deviceNetworkId) 
+    }
+
+    def volup() {
+        log.debug "VOLUP pressed"
+        sendCommand("/volumeUp", "parseResponse")
+        sendEvent(name:"Command", value: "Volume Up", displayed: true)         
+    }
+
+    def voldown() {
+        log.debug "VOLDOWN pressed"
+        sendCommand("/volumeDown", "parseResponse")
+        sendEvent(name:"Command", value: "Volume Down", displayed: true)         
+    }
+
+    def Enter() {
+        log.debug "ENTER pressed"
+        sendCommand("/enter", "parseResponse")
+    }
+
+    def Return() {
+        log.debug "RETURN pressed"
+        parent.tvAction("RETURN",device.deviceNetworkId) 
+    }
+
+    def Info() {
+        log.debug "INFO pressed"
+        parent.tvAction("INFO",device.deviceNetworkId) 
+        sendEvent(name:"Command", value: "Info", displayed: true)    
+    }
+
+    def Size() {
+        log.debug "PICTURE_SIZE pressed"
+        parent.tvAction("PICTURE_SIZE",device.deviceNetworkId) 
+        sendEvent(name:"Command", value: "Picture Size", displayed: true)
+    }
+
+    private sendCommand(command, action){
+        def cmdStr = new physicalgraph.device.HubAction([
+            method: "GET",	
+            path: command,
+            headers: [
+                AUTH: "noauth",
+                HOST: "${deviceIP}:${devicePort}"
+            ]],
+            null,
+            [callback: action]
+        )
+        sendHubCommand(cmdStr)
+    }
+    
+     private sendCommandWithData(command, action, data){
+    	 def headers = [
+                AUTH: "noauth",
+                HOST: "${deviceIP}:${devicePort}"
+            ];
+         if(null != data ){
+            	headers.putAll(data)
+         }
+        def cmdStr = new physicalgraph.device.HubAction([
+            method: "GET",	
+            path: command,
+            headers: headers],
+            null,
+            [callback: action]
+        )
+        sendHubCommand(cmdStr)
+    }
+     private sendLocalCommand(command, action){
+       log.debug "sendLocalCommand";
+       def headers = [
+                AUTH: "noauth",
+                HOST: "192.168.1.218:4400"
+            ];
+        def cmdStr = new physicalgraph.device.HubAction([
+            method: "GET",	
+            path: command,
+            headers: headers],
+            null,
+            [callback: action]
+        )
+        
+        sendHubCommand(cmdStr)
+    }
+    
+    def locationHandler(evt) {
+    def description = evt.description
+    def hub = evt?.hubId
+    
+    log.debug "cp desc: " + description
+    	if (description.count(",") > 4){	
+            def bodyString = new String(description.split(',')[5].split(":")[1].decodeBase64())
+            log.debug(bodyString)
+            }
+        
+      }
+
+    def parseResponse(resp) {
+    def msg = parseLanMessage(resp.description)
+     //   log.debug "RAW RESPONSE:  ${resp}"
+       //   log.debug "RAW MESSAGE:  ${msg}"
+    }
