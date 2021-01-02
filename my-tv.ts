@@ -84,7 +84,7 @@ class MyTv {
 
     router.get("/navigateUp", (req, res, next) => {
       const control: any = this.tv.control;
-      control.navigate.up();
+      control.keyCommand(3, 8);
       res.json({
         message: "success"
       });
@@ -92,7 +92,7 @@ class MyTv {
 
     router.get("/navigateDown", (req, res, next) => {
       const control: any = this.tv.control;
-      control.keyCommand(3, 8);
+      control.navigate.down();
       res.json({
         message: "success"
       });
