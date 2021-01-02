@@ -65,9 +65,18 @@ class MyTv {
     });
 
     router.get("/navigateRight", (req, res, next) => {
-      const control: any = this.tv.control;
-      control.navigate.right();
-      // this.tv.control.keyCommand(3, 11);
+      const control = this.tv.control;
+      //control.navigate.right();
+      control.keyCommand(3, 7);
+      res.json({
+        message: "success"
+      });
+    });
+
+    router.get("/sendKeyCode/:one/:two", (req, res, next) => {
+      const control = this.tv.control;
+      control.keyCommand(+req.params.one, +req.params.two)
+      console.log(req.params.one, req.params.two);
       res.json({
         message: "success"
       });
@@ -83,7 +92,7 @@ class MyTv {
 
     router.get("/navigateDown", (req, res, next) => {
       const control: any = this.tv.control;
-      control.navigate.down();
+      control.keyCommand(3, 8);
       res.json({
         message: "success"
       });
@@ -126,8 +135,32 @@ class MyTv {
       });
     });
 
+    router.get("/forward", (req, res, next) => {
+      const control: any = this.tv.control;
+      control.media.seek.forward();
+      res.json({
+        message: "success"
+      });
+    });
+
+    router.get("/back", (req, res, next) => {
+      const control: any = this.tv.control;
+      control.media.seek.back();
+      res.json({
+        message: "success"
+      });
+    });
+
     router.get("/togglePower", (req, res, next) => {
       this.tv.control.power.toggle();
+      res.json({
+        message: "success"
+      });
+    });
+
+    router.get("/home", (req, res, next) => {
+      const control: any = this.tv.control;
+      control.keyCommand(4, 3);
       res.json({
         message: "success"
       });
