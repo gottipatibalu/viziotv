@@ -193,15 +193,15 @@ let SMARTCAST = function smartcast(host, authKey) {
                 if(appName.toLowerCase() === 'netflix') {
                     data = {
                         "VALUE": {
-                            "MESSAGE": "None",
-                            "NAME_SPACE": 5,
+                            "MESSAGE": null,
+                            "NAME_SPACE": 3,
                             "APP_ID": "1"
                         }
                     };
                 } else if(appName.toLowerCase() === 'hulu') {
                     data = {
                         "VALUE": {
-                            "MESSAGE": "None",
+                            "MESSAGE": null,
                             "NAME_SPACE": 2,
                             "APP_ID": "3"
                         }
@@ -209,7 +209,7 @@ let SMARTCAST = function smartcast(host, authKey) {
                 } else if(appName.toLowerCase() === 'youtube') {
                     data = {
                         "VALUE": {
-                            "MESSAGE": "None",
+                            "MESSAGE": null,
                             "NAME_SPACE": 5,
                             "APP_ID": "1"
                         }
@@ -217,7 +217,7 @@ let SMARTCAST = function smartcast(host, authKey) {
                 } else if(appName.toLowerCase() === 'plex') {
                     data = {
                         "VALUE": {
-                            "MESSAGE": "None",
+                            "MESSAGE": null,
                             "NAME_SPACE": 2,
                             "APP_ID": "9"
                         }
@@ -225,12 +225,13 @@ let SMARTCAST = function smartcast(host, authKey) {
                 } else if(appName.toLowerCase() === 'amazon') {
                     data = {
                         "VALUE": {
-                            "MESSAGE": "None",
+                            "MESSAGE": null,
                             "NAME_SPACE": 2,
                             "APP_ID": "4"
                         }
                     };
                 }
+                console.log(data);
                 return new Promise((resolve) => {
                     sendRequest('put', host + '/app/launch', _authKey, data ).then(resolve)
                 });
