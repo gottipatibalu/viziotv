@@ -1,7 +1,7 @@
 import express from "express";
 import { Application } from "express";
 import * as bodyParser from "body-parser";
-import smartcast, { Device } from "vizio-smart-cast";
+import smartcast, { Device } from "./vizio";
 import * as _ from "underscore";
 import * as readline from "readline";
 
@@ -56,6 +56,7 @@ class MyTv {
         message: "success"
       });
     });
+
     router.get("/navigateLeft", (req, res, next) => {
       const control: any = this.tv.control;
       control.navigate.left();
@@ -161,6 +162,38 @@ class MyTv {
     router.get("/home", (req, res, next) => {
       const control: any = this.tv.control;
       control.keyCommand(4, 3);
+      res.json({
+        message: "success"
+      });
+    });
+
+    router.get("/netflix", (req, res, next) => {
+      const control = this.tv.control;
+      control.app.open('netflix');
+      res.json({
+        message: "success"
+      });
+    });
+
+    router.get("/hulu", (req, res, next) => {
+      const control = this.tv.control;
+      control.app.open('hulu');
+      res.json({
+        message: "success"
+      });
+    });
+
+    router.get("/youtube", (req, res, next) => {
+      const control = this.tv.control;
+      control.app.open('youtube');
+      res.json({
+        message: "success"
+      });
+    });
+
+    router.get("/amazon", (req, res, next) => {
+      const control = this.tv.control;
+      control.app.open('amazon');
       res.json({
         message: "success"
       });
